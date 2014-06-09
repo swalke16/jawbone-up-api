@@ -35,6 +35,20 @@ module Jawbone
       post_helper("users/@me/refreshToken", {secret: client_secret})
     end
 
+    def refresh_oauth_token(client_id, client_secret, refresh_token)
+      url = "https://jawbone.com/auth/oauth2/token";
+      response = self.class.post url,
+        {
+          body: {
+            client_id: client_id,
+            client_secret: client_secret,
+            grant_type: "refresh_token",
+            refresh_token: refresh_token
+          }
+        }
+      response.parsed_response
+    end
+
     base_strings = ["move", "body_event", "workout", "sleep", "meal",
       "cardiac_event", "generic_event"]
 
